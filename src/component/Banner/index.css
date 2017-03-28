@@ -1,0 +1,12 @@
+.banner{
+    cursor:pointer;
+    height: 16.8rem;
+}
+
+.bannerListLi{
+    width: 10rem;
+}
+
+.bannerListLi img{
+    width: 100%;
+}
