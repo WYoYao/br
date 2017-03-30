@@ -1,5 +1,3 @@
-
-
 let list=[{
   title:"title1",
   url:"http://h.jsj.com.cn/m/Topic/201703/Voucher/images/banner750.png",
@@ -17,7 +15,7 @@ let list=[{
   href:"www.baidu.com"
 }];
 
-export default (state=list,action)=>{
+export let bannerList = (state=list,action)=>{
     let bannerList=state.map(item=>item);
     if(action.type==="insertBanner"){
         bannerList.push(action.value);
@@ -25,4 +23,13 @@ export default (state=list,action)=>{
     }else{
         return state;
     }
+};
+
+export let left=(state=0,action)=>{
+    if(action.type==="updateLeft"){
+        return action.value;
+    }else{
+        return state;
+    }
 }
+

@@ -3,7 +3,8 @@ import Banner from '../../component/Banner/index.jsx';
 
 function mapStateToProps(state) {
   return {
-    BannerList: state.Home.BannerList
+    bannerList: state.Home.bannerList,
+    left:state.Home.left
   }
 }
 
@@ -12,6 +13,10 @@ function mapDispatchToProps(dispatch) {
     insertBanner:(value)=>{dispatch({
         type:"insertBanner",
         value:value
+    })},
+    updateLeft:(value)=>{dispatch({
+      type:"updateLeft",
+      value:value
     })}
   }
 }

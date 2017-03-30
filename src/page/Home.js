@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 // import Banner from './component/Banner/index.jsx';
 import Banner from '../contain/Banner/index.js';
 
-let BannerList=[{
+let bannerList=[{
   title:"title1",
   url:"http://h.jsj.com.cn/m/Topic/201703/Voucher/images/banner750.png",
   index:1,
@@ -27,7 +27,7 @@ class Home extends Component {
   render() {
     return (
       <div>
-          <Banner {...{BannerList}}/>
+          <Banner {...{bannerList}}/>
       </div>
     );
   }
