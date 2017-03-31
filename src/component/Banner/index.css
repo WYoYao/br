@@ -1,12 +1,43 @@
 .banner{
     cursor:pointer;
-    height: 16.8rem;
+    width: 10rem;
+    overflow: hidden;
+    height: 4.8rem;
+    position: relative;
+}
+
+.bannerList{
+    transition: all 1s ease-in-out 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 30rem;
+}
+
+.example-enter{
+    left: 0;
+}
+
+.example-enter.example-enter-active{
+    left: -500px;
+    transition: opacity 500ms ease-in;
+}
+
+.example-leave {
+  left: -500px;
+}
+
+.example-leave.example-leave-active {
+  left: 0;
+  transition: opacity 300ms ease-in;
 }
 
 .bannerListLi{
+    float: left;
     width: 10rem;
 }
 
 .bannerListLi img{
     width: 100%;
 }
+
