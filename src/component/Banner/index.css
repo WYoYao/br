@@ -14,24 +14,6 @@
     width: 30rem;
 }
 
-.example-enter{
-    left: 0;
-}
-
-.example-enter.example-enter-active{
-    left: -500px;
-    transition: opacity 500ms ease-in;
-}
-
-.example-leave {
-  left: -500px;
-}
-
-.example-leave.example-leave-active {
-  left: 0;
-  transition: opacity 300ms ease-in;
-}
-
 .bannerListLi{
     float: left;
     width: 10rem;

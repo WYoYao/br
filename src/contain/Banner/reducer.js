@@ -25,8 +25,8 @@ export let bannerList = (state=list,action)=>{
     }
 };
 
-export let left=(state=0,action)=>{
-    if(action.type==="updateLeft"){
+export let bannerStyle=(state={},action)=>{
+    if(action.type==="updateStyle"){
         return action.value;
     }else{
         return state;
