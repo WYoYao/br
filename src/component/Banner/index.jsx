@@ -8,12 +8,10 @@ let TouchData={
     end:{}
 }
 
+let WidthArray;
+let CompleteWidth;
+
 export default class Banner extends Component {
-    //根据当前left值计算应该显示的图片
-    getLeft(){
-        console.log(Object.values(this.refs));
-        
-    }
     // 开始事件
     handleTouchStart(e) {
 
@@ -21,26 +19,34 @@ export default class Banner extends Component {
         
         TouchData.start={clientX,clientY};
 
-        // updateStyle({left:"-50px"});
     }
     // 移动
     handleTouchMove(e) {
 
         let {clientX,clientY}=e.targetTouches[0];
 
-        let {updateStyle} =this.props;
-        let {left=0} =this.props.style;
-        console.log(left);
+        let {updateLeft} =this.props;
+
+        let left =this.props.left;
+     
         left=left+clientX-(TouchData.moveLast.clientX || TouchData.start.clientX);
-        console.log(left);
+     
         TouchData.moveLast={clientX,clientY};
 
-        updateStyle({
-            left
-        });
+        let remainder=left>0?left:-this.getCompleteWidth()-left;
+        if(left>0){
+            left=-(this.getCompleteWidth()+remainder);
+        }else if(left<-(this.getCompleteWidth())){
+            left=-(remainder);
+        }
+
+        updateLeft(left);
+
     }
     // 结束时间
     handleTouchEnd(e) {
+
+        let {updateLeft} =this.props;
 
         let {clientX,clientY}=e.changedTouches[0];
 
@@ -49,30 +55,59 @@ export default class Banner extends Component {
             clientY:0,
         }
 
+        let left=-this.props.left%this.getCompleteWidth();
+        let index=0;
+
         TouchData.end={clientX,clientY};
+        this.getWidthArray().reduce((a,b,i)=>{
+            let c=a;
+            a+=b;
+            if(c<left && left <a){
+                index=i;
+            }
+            return a;
+        },0);
 
-        // this.getImgWidth();
+        console.log(this.getWidthArray().slice(0,index));
 
-        
+        // left = -this.getWidthArray().slice(0,index).reduce((a,b)=>{ return a+b},0);
+
+        // updateLeft(left);
+
     }
-    // 添加图片
-    addBanner(e) {
-        let { insertBanner } = this.props;
-        insertBanner({
-            title: "title3",
-            url: "http://h.jsj.com.cn/m/Topic/201612/yinchuan/images/banner750_20170122.png",
-            index: +new Date(),
-            href: "www.baidu.com"
-        })
+    // 获取各个图片的宽度
+    getWidthArray(){
+        if(!Array.isArray(WidthArray)){
+            WidthArray = Object.values(this.refs).map(item=>item.offsetWidth);
+        };
+        return WidthArray;
+    }
+    // 获取完整的宽度值
+    getCompleteWidth(){
+        if(!CompleteWidth){
+            CompleteWidth=this.getWidthArray().slice(0,-1).reduce((a,b)=>a+b)
+        };
+        return CompleteWidth;
+    }
+    //实例已经加载
+    componentDidMount(){
+        let {updateWidth} =this.props;
+        updateWidth(this.getWidthArray().reduce((a,b)=>a+b))
     }
     render() {
 
+
         let bannerList =this.props.bannerList;
+        
+        let ulStyle={
+            width:this.props.width+"px",
+            left:this.props.left+"px"
+        }
 
 
         return (
-            <div className="banner" onClick={this.addBanner.bind(this)}>
-                    <ul className="bannerList" style={this.props.style} onTouchStart={this.handleTouchStart.bind(this)} onTouchEnd={this.handleTouchEnd.bind(this)} onTouchMove={this.handleTouchMove.bind(this)}>
+            <div className="banner">
+                    <ul className="bannerList" style={ulStyle} onTouchStart={this.handleTouchStart.bind(this)} onTouchEnd={this.handleTouchEnd.bind(this)} onTouchMove={this.handleTouchMove.bind(this)}>
                         {
                             bannerList.map((item) => <li className="bannerListLi" ref={item.index} key={item.index}><a href=""><img src={item.url} alt={item.title} /></a></li>)
                         }

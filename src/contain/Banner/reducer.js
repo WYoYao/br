@@ -13,6 +13,11 @@ let list=[{
   url:"http://h.jsj.com.cn/m/Topic/201612/yinchuan/images/banner750_20170122.png",
   index:3,
   href:"www.baidu.com"
+},{
+  title:"title4",
+  url:"http://h.jsj.com.cn/m/Topic/201703/Voucher/images/banner750.png",
+  index:4,
+  href:"www.baidu.com"
 }];
 
 export let bannerList = (state=list,action)=>{
@@ -25,8 +30,16 @@ export let bannerList = (state=list,action)=>{
     }
 };
 
-export let bannerStyle=(state={},action)=>{
-    if(action.type==="updateStyle"){
+export let width=(state=375,action)=>{
+    if(action.type==="width"){
+        return action.value;
+    }else{
+        return state;
+    }
+}
+
+export let left=(state=0,action)=>{
+    if(action.type==="left"){
         return action.value;
     }else{
         return state;

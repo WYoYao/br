@@ -1,7 +1,8 @@
 import {combineReducers} from 'redux';
-import {bannerList,bannerStyle} from '../contain/Banner/reducer.js'; 
+import {bannerList,left,width} from '../contain/Banner/reducer.js'; 
 
 export default combineReducers({
     bannerList,
-    bannerStyle
+    left,
+    width
 });
